@@ -1,4 +1,4 @@
-name: Build Android APK and AAB
+name: Build Android APK
 
 on:
   push:
@@ -29,22 +29,15 @@ jobs:
         npm install
         npm install --save-dev @capacitor/cli
 
-    - name: Build Android
+    - name: Build Android Debug APK
       run: |
         npx cap sync android
         cd android
         chmod +x gradlew
-        ./gradlew assembleRelease
-        ./gradlew bundleRelease
+        ./gradlew assembleDebug
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
-        name: ProConstruct-APK
-        path: android/app/build/outputs/apk/release/app-release-unsigned.apk
-
-    - name: Upload AAB (Google Play)
-      uses: actions/upload-artifact@v4
-      with:
-        name: ProConstruct-AAB
-        path: android/app/build/outputs/bundle/release/app-release.aab
+        name: ProConstruct-Debug-APK
+        path: android/app/build/outputs/apk/debug/app-debug.apk
