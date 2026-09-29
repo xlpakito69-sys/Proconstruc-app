@@ -77,21 +77,71 @@
     </div>
 
     <script>
-        const TRIAL_DAYS = 30;
-        let startDate = localStorage.getItem('proconstruct_trial_start');
+const TRIAL_DAYS = 30;
 
-        if (!startDate) {
-            startDate = new Date().getTime();
-            localStorage.setItem('proconstruct_trial_start', startDate);
-        }
+let startDate = localStorage.getItem('proconstruct_trial_start');
 
-        const now = new Date().getTime();
-        const elapsedDays = Math.floor((now - parseInt(startDate)) / (1000 * 60 * 60 * 24));
-        let daysLeft = TRIAL_DAYS - elapsedDays;
+if (!startDate) {
+    startDate = new Date().getTime();
+    localStorage.setItem('proconstruct_trial_start', startDate);
+}
 
-        if (daysLeft < 0) daysLeft = 0;
+const now = new Date().getTime();
+const elapsedDays = Math.floor(
+    (now - parseInt(startDate)) / (1000 * 60 * 60 * 24)
+);
 
-        document.getElementById('days-left').innerText = daysLeft;
-    </script>
+const daysLeft = TRIAL_DAYS - elapsedDays;
+const daysElement = document.getElementById('days-left');
+const trialBadge = document.querySelector('.trial-badge-corner');
+
+/* Zilele 1-24: aplicația funcționează normal */
+if (daysLeft > 5) {
+    if (trialBadge) trialBadge.style.display = 'none';
+}
+
+/* Zilele 25-29: afișează zilele rămase */
+if (daysLeft <= 5 && daysLeft > 0) {
+    if (trialBadge) trialBadge.style.display = 'block';
+    if (daysElement) daysElement.innerText = daysLeft;
+}
+
+/* După cele 30 de zile: aplicația este complet blocată */
+if (elapsedDays >= TRIAL_DAYS) {
+    document.body.innerHTML = `
+        <div style="
+            position:fixed;
+            inset:0;
+            width:100%;
+            height:100%;
+            background:#111827;
+            color:#fff;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+            padding:30px;
+            box-sizing:border-box;
+            z-index:999999;
+            font-family:Arial,sans-serif;
+        ">
+            <div style="max-width:500px;">
+                <h1 style="font-size:28px;margin-bottom:20px;">
+                    Perioada de testare a expirat
+                </h1>
+
+                <p style="font-size:18px;line-height:1.6;">
+                    Perioada gratuită de 30 de zile s-a încheiat.
+                </p>
+
+                <p style="font-size:18px;line-height:1.6;">
+                    Pentru a continua utilizarea aplicației,
+                    este necesară efectuarea plății.
+                </p>
+            </div>
+        </div>
+    `;
+}
+</script>
 </body>
 </html>
