@@ -24,39 +24,58 @@
             color: #1e3a8a;
             font-size: 24px;
         }
+        #paywall-overlay {
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .paywall-card {
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+        .pay-btn {
+            display: inline-block;
+            margin-top: 20px;
+            background: #16a34a;
+            color: #fff;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
 
-    <!-- Contor Trial & Buton Plată PayPal - Colț dreapta sus -->
-    <div id="trial-counter" style="position: fixed; top: 15px; right: 15px; background: rgba(30, 58, 138, 0.95); color: #fff; padding: 8px 12px; border-radius: 8px; font-size: 13px; font-weight: bold; z-index: 9999; box-shadow: 0 3px 6px rgba(0,0,0,0.3); text-align: right;">
-        <div style="margin-bottom: 4px;">Trial: <span id="days-left">30</span> zile</div>
-        <a href="https://paypal.me/allex23a" target="_blank" style="display: inline-block; background: #0070ba; color: #fff; padding: 4px 10px; font-size: 11px; border-radius: 4px; text-decoration: none; font-weight: bold;">Plătește PayPal</a>
+    <div id="paywall-overlay">
+        <div class="paywall-card">
+            <h2 style="color: #f87171; margin-top: 0;">Perioada de Test a Expirat</h2>
+            <p>Cele 30 de zile gratuite pentru <strong>ProConstruct 360</strong> s-au încheiat.</p>
+            <p>Poți achita licența rapid cu cardul, direct în contul tău PayPal (@allex23a).</p>
+            <a href="https://paypal.me/allex23a" target="_blank" class="pay-btn">Plătește Licența Acum</a>
+        </div>
     </div>
 
     <div class="container">
         <h1>ProConstruct 360</h1>
-        <p>Bun venit în aplicația ta de construcții! Modulul trial de 30 de zile este activ.</p>
-        <p>Pentru a debloca versiunea completă pe termen nelimitat, folosește butonul de plată din colțul dreapta sus pentru a trimite plata prin PayPal.</p>
+        <p>Aplicație de construcții.</p>
     </div>
 
-    <script>
-        // Logica pentru contorul de 30 de zile
-        const TRIAL_DAYS = 30;
-        let startDate = localStorage.getItem('proconstruct_trial_start');
-
-        if (!startDate) {
-            startDate = new Date().getTime();
-            localStorage.setItem('proconstruct_trial_start', startDate);
-        }
-
-        const now = new Date().getTime();
-        const elapsedDays = Math.floor((now - parseInt(startDate)) / (1000 * 60 * 60 * 24));
-        let daysLeft = TRIAL_DAYS - elapsedDays;
-
-        if (daysLeft < 0) daysLeft = 0;
-
-        document.getElementById('days-left').innerText = daysLeft;
-    </script>
 </body>
 </html>
