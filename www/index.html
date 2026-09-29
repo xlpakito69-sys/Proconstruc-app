@@ -24,8 +24,31 @@
             color: #1e3a8a;
             font-size: 24px;
         }
+        /* Contor mic și discret în dreapta sus, nu deranjează cu nimic */
+        #trial-badge {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background: rgba(30, 58, 138, 0.9);
+            color: #fff;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 9999;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            text-align: right;
+        }
+        #trial-badge a {
+            color: #6ee7b7;
+            text-decoration: underline;
+            font-size: 11px;
+            display: block;
+            margin-top: 2px;
+        }
+        /* Ecranul de blocare apare DOAR dacă trec efectiv 30 de zile și nu s-a plătit */
         #paywall-overlay {
-            display: flex;
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
@@ -50,12 +73,12 @@
         }
         .pay-btn {
             display: inline-block;
-            margin-top: 20px;
+            margin-top: 15px;
             background: #16a34a;
             color: #fff;
-            padding: 12px 24px;
-            font-size: 16px;
-            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 15px;
+            border-radius: 6px;
             text-decoration: none;
             font-weight: bold;
         }
@@ -63,19 +86,49 @@
 </head>
 <body>
 
+    <!-- Contor mic în dreapta sus cu opțiune de plată oricând -->
+    <div id="trial-badge">
+        <span>Trial: <span id="days-left">30</span> zile</span>
+        <a href="https://paypal.me/allex23a" target="_blank">Cumpără Licența</a>
+    </div>
+
+    <!-- Ecran blocare doar la expirare -->
     <div id="paywall-overlay">
         <div class="paywall-card">
             <h2 style="color: #f87171; margin-top: 0;">Perioada de Test a Expirat</h2>
-            <p>Cele 30 de zile gratuite pentru <strong>ProConstruct 360</strong> s-au încheiat.</p>
-            <p>Poți achita licența rapid cu cardul, direct în contul tău PayPal (@allex23a).</p>
-            <a href="https://paypal.me/allex23a" target="_blank" class="pay-btn">Plătește Licența Acum</a>
+            <p>Cele 30 de zile gratuite s-au încheiat.</p>
+            <p>Introdu cardul tău pentru a achita licența și a continua.</p>
+            <a href="https://paypal.me/allex23a" target="_blank" class="pay-btn">Plătește cu Cardul</a>
         </div>
     </div>
 
     <div class="container">
         <h1>ProConstruct 360</h1>
-        <p>Aplicație de construcții.</p>
+        <p>Bun venit în aplicație! Totul funcționează normal în perioada de test.</p>
     </div>
 
+    <script>
+        const TRIAL_DAYS = 30;
+        let startDate = localStorage.getItem('proconstruct_trial_start');
+
+        if (!startDate) {
+            startDate = new Date().getTime();
+            localStorage.setItem('proconstruct_trial_start', startDate);
+        }
+
+        const now = new Date().getTime();
+        const elapsedDays = Math.floor((now - parseInt(startDate)) / (1000 * 60 * 60 * 24));
+        let daysLeft = TRIAL_DAYS - elapsedDays;
+
+        if (daysLeft < 0) daysLeft = 0;
+
+        document.getElementById('days-left').innerText = daysLeft;
+
+        // Doar dacă s-au scurs 30 de zile se blochează ecranul, altfel aplicația merge liber
+        if (daysLeft === 0) {
+            document.getElementById('trial-badge').style.display = 'none';
+            document.getElementById('paywall-overlay').style.display = 'flex';
+        }
+    </script>
 </body>
 </html>
