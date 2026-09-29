@@ -3,7 +3,8 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
+  <!-- O casă geometrică modernă și clară -->
   <path
       android:fillColor="#FFFFFF"
-      android:pathData="M54,26 L20,54 L28,54 L28,82 L46,82 L46,62 L62,62 L62,82 L80,82 L80,54 L88,54 Z"/>
+      android:pathData="M54,20 L15,52 L27,52 L27,88 L81,88 L81,52 L93,52 Z M42,76 L42,60 L66,60 L66,76 Z"/>
 </vector>
