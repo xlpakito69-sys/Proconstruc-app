@@ -15,67 +15,65 @@
             padding: 15px;
             color: #1f2937;
         }
+        /* Antet stilizat exact ca în aplicația ta reală */
         .app-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            position: relative;
             background: #ffffff;
             padding: 15px 20px;
             border-radius: 12px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            text-align: center;
         }
         .app-header h1 {
             color: #1e3a8a;
-            font-size: 20px;
+            font-size: 22px;
             margin: 0;
+            font-weight: bold;
         }
-        /* Contorul mic și discret din dreapta sus */
-        .trial-box {
+        /* Numărătoarea inversă fixată curat în colțul din dreapta sus al antetului */
+        .trial-badge-corner {
+            position: absolute;
+            top: 10px;
+            right: 12px;
             background: #1e3a8a;
             color: #fff;
-            padding: 5px 10px;
+            padding: 4px 8px;
             border-radius: 6px;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: bold;
             text-align: right;
+            line-height: 1.2;
         }
-        .trial-box a {
+        .trial-badge-corner a {
             color: #6ee7b7;
             text-decoration: underline;
             display: block;
-            font-size: 10px;
-            margin-top: 2px;
+            font-size: 9px;
+            margin-top: 1px;
         }
         .main-card {
             background: #ffffff;
             padding: 20px;
             border-radius: 12px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            margin-bottom: 15px;
-        }
-        .main-card h2 {
-            font-size: 18px;
-            color: #1f2937;
-            margin-top: 0;
         }
     </style>
 </head>
 <body>
 
-    <!-- Antetul aplicației cu titlul și contorul discret -->
+    <!-- Antetul principal cu numărătoarea în colțul din dreapta sus -->
     <div class="app-header">
-        <h1>ProConstruct 360</h1>
-        <div class="trial-box">
-            <span>Trial: <span id="days-left">30</span> zile</span>
+        <h1>PROCONSTRUCT 360</h1>
+        <div class="trial-badge-corner">
+            <span>Trial: <strong id="days-left">30</strong> zile</span>
             <a href="https://paypal.me/allex23a" target="_blank">Plătește</a>
         </div>
     </div>
 
-    <!-- Conținutul principal al aplicației (complet deblocat și funcțional) -->
     <div class="main-card">
-        <h2>Panou Control Șantier</h2>
-        <p>Bun venit în aplicație! Toate funcțiile sunt active și neîngrădite în perioada de test.</p>
+        <h3>Panou Control Șantier</h3>
+        <p>Aplicația funcționează complet și liber în perioada de testare.</p>
     </div>
 
     <script>
